@@ -194,7 +194,6 @@
 				71D06BEDAF24BA96F6079756 /* Pods-MyPlanner-tvOSTests.debug.xcconfig */,
 				44167A002719EB9FF3E7D759 /* Pods-MyPlanner-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

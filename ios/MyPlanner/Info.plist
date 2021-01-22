@@ -22,6 +22,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,12 +39,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>My planner would like to find nearby users based on location.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>My planner wants to open your camera for you to take pictures for avatar picture.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access and login to your account.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>My planner would like to find nearby users based on location.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>My planner would like to access your location in order to find users around your area.</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -77,8 +79,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
