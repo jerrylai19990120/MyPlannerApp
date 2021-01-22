@@ -39,6 +39,10 @@ export const Home = ({navigation})=>{
 
     }
 
+    const logout = ()=>{
+
+    }
+
     return(
         <View style={{flex: 1, backgroundColor:'#DCDCDC'}}>
             <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh}/>}>
@@ -82,7 +86,8 @@ export const Home = ({navigation})=>{
                         }
                     </List.Accordion>
                 </List.Section>
-                <View style={{marginTop: '30%', padding: '10%'}}>
+            </ScrollView>
+            <View style={{padding: '10%'}}>
                     <Button 
                         type="outline"
                         title="Add a Task"
@@ -97,8 +102,22 @@ export const Home = ({navigation})=>{
                         titleStyle={{color: 'orange'}}
                         onPress={()=>{addTask()}}
                     />
+                    <Button 
+                        type="outline"
+                        title="Log out"
+                        icon={
+                            <Icon
+                                name="logout"
+                                size={26}
+                                color="orange"
+                            />
+                        }
+                        style={{marginTop: '1%'}}
+                        buttonStyle={{borderColor: 'orange', borderWidth: 3}}
+                        titleStyle={{color: 'orange'}}
+                        onPress={()=>{logout()}}
+                    />
                 </View>
-            </ScrollView>
         </View>
     )
 }

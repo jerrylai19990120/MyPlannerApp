@@ -25,6 +25,8 @@ export const Signup = ({navigation})=>{
         fetch(request).then(res => {
             if(res.status === 200){
                 navigation.navigate('Home')
+            }else{
+                
             }
         }).catch(err => console.log(err))
     }

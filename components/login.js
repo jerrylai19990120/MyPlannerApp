@@ -9,7 +9,27 @@ export const Login = ({navigation})=>{
     const [password, setPassword] = React.useState('')
 
     const login = ()=>{
-        navigation.navigate("Home")
+        const request = new Request('http://127.0.0.1:8000/login/', {
+            method: 'post',
+            body: JSON.stringify({
+                username: username,
+                password: password
+            }),
+            headers: {
+                Accept: 'application/json, text/plain, */*',
+                "Content-type": "application-json"
+            }
+        })
+
+        fetch(request).then(res => {
+            return res.json()
+        }).then(json => {
+            if(json.username===username){
+                navigation.navigate("Home")
+            }else{
+
+            }
+        })
     }
 
     return(
