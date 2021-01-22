@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 import {View, Text, ImageBackground, ScrollView, RefreshControl} from 'react-native';
-import {Avatar, Input, Button} from 'react-native-elements';
+import {Avatar, Input, Button, Icon} from 'react-native-elements';
 import {List} from 'react-native-paper';
+import Swipeout from 'react-native-swipeout-mod';
 
 
 export const Home = ({navigation})=>{
@@ -16,33 +17,27 @@ export const Home = ({navigation})=>{
         
         setRrefresh(false)
     }
-
+    /*{
+            title: "task 1",
+            desc: "desc",
+            date: "2019-10-10",
+            finished: true
+        }*/
     useEffect(()=>{
         setPastTasks([])
         setCurrTasks([])
         setUpcomingTasks([])
-        setPastTasks(old=>[...old, {
-            title: "task 1",
-            desc: "desc",
-            date: "2019-10-10",
-            finished: true
-        }])
-        setCurrTasks(old=>[...old, {
-            title: "task 1",
-            desc: "desc",
-            date: "2019-10-10",
-            finished: true
-        }])
-        setUpcomingTasks(old=>[...old, {
-            title: "task 1",
-            desc: "desc",
-            date: "2019-10-10",
-            finished: true
-        }])
-
-
+        
 
     }, [])
+
+    const removeTask = (index)=>{
+
+    }
+
+    const addTask = ()=>{
+
+    }
 
     return(
         <View style={{flex: 1, backgroundColor:'#DCDCDC'}}>
@@ -65,7 +60,10 @@ export const Home = ({navigation})=>{
                         left={props => <List.Icon {...props} icon="calendar-star" />}>
                         {currTasks.length===0?<List.Item title="No tasks for today" left={props=><List.Icon {...props} icon="crystal-ball"/>}/>:
                             currTasks.map((item, i)=>(
-                                <List.Item title={item.title} description={item.desc} left={props=><List.Icon {...props} icon={item.finished?"check-underline-circle":"clock-outline"}/>} right={()=>(<Text>{item.date}</Text>)}/>
+                                <Swipeout right={[{text: 'Remove', backgroundColor: 'orange', onPress: ()=>{removeTask(i)}}]}>
+                                    <List.Item title={item.title} description={item.desc} left={props=><List.Icon {...props} icon={item.finished?"check-underline-circle":"clock-outline"}/>} right={()=>(<Text>{item.date}</Text>)}/>
+                                </Swipeout>
+                                
                             ))
                         }
                     </List.Accordion>
@@ -76,11 +74,30 @@ export const Home = ({navigation})=>{
                     >
                         {upcomingTasks.length===0?<List.Item title="No upcoming tasks" left={props=><List.Icon {...props} icon="crystal-ball"/>}/>:
                             upcomingTasks.map((item, i)=>(
-                                <List.Item title={item.title} description={item.desc} left={props=><List.Icon {...props} icon="clock-outline"/>} right={()=>(<Text>{item.date}</Text>)}/>
+                                <Swipeout right={[{text: 'Remove', backgroundColor: 'orange', onPress: ()=>{removeTask(i)}}]}>
+                                    <List.Item title={item.title} description={item.desc} left={props=><List.Icon {...props} icon="clock-outline"/>} right={()=>(<Text>{item.date}</Text>)}/>
+                                </Swipeout>
+                                
                             ))
                         }
                     </List.Accordion>
                 </List.Section>
+                <View style={{marginTop: '30%', padding: '10%'}}>
+                    <Button 
+                        type="outline"
+                        title="Add a Task"
+                        icon={
+                            <Icon
+                                name="add"
+                                size={26}
+                                color="orange"
+                            />
+                        }
+                        buttonStyle={{borderColor: 'orange', borderWidth: 3}}
+                        titleStyle={{color: 'orange'}}
+                        onPress={()=>{addTask()}}
+                    />
+                </View>
             </ScrollView>
         </View>
     )
