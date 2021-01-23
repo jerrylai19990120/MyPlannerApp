@@ -3,6 +3,7 @@ import {View, Text, ImageBackground, ScrollView, RefreshControl} from 'react-nat
 import {Avatar, Input, Button, Icon} from 'react-native-elements';
 import {List} from 'react-native-paper';
 import Swipeout from 'react-native-swipeout-mod';
+import {showMessage} from 'react-native-flash-message';
 
 
 export const Home = ({navigation, username, setUser})=>{
@@ -191,6 +192,42 @@ export const Home = ({navigation, username, setUser})=>{
         navigation.navigate('Welcome')
     }
 
+    const finishTask = (index)=>{
+        task_id = currTasks[index].id
+        const request = new Request('http://127.0.0.1:8000/updateTask/', {
+            method: 'delete',
+            body: JSON.stringify({
+                id: `${task_id}`,
+                finished: 'true'
+            }),
+            headers: {
+                Accept: "application/json, text/plain, */*",
+                "Content-type": "application/json"
+            }
+        })
+
+        fetch(request).then(res => {
+            return res.json()
+        }).then(json => {
+            
+            if(!Boolean(json.updated)){
+                showMessage({
+                    message: '',
+                    description: 'Error occured',
+                    type: 'danger',
+                    duration: 1000
+                })
+            }else{
+                showMessage({
+                    message: '',
+                    description: 'Congrats on finishing',
+                    type: 'success',
+                    duration: 1000
+                })
+            }
+        }).catch(err => console.log(err))
+    }
+
     return(
         <View style={{flex: 1, backgroundColor:'#DCDCDC'}}>
             <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh}/>}>
@@ -212,7 +249,7 @@ export const Home = ({navigation, username, setUser})=>{
                         left={props => <List.Icon {...props} icon="calendar-star" />}>
                         {currTasks.length===0?<List.Item title="No tasks for today" left={props=><List.Icon {...props} icon="crystal-ball"/>}/>:
                             currTasks.map((item, i)=>(
-                                <Swipeout right={[{text: 'Remove', backgroundColor: 'orange', onPress: ()=>{removeCurrTask(i)}}]}>
+                                <Swipeout right={[{text: 'Remove', backgroundColor: 'orange', onPress: ()=>{removeCurrTask(i)}}]} left={[{text: 'finish', backgroundColor: 'green', onPress: ()=>{finishTask(i)}}]}>
                                     <List.Item title={item.title} description={item.desc} left={props=><List.Icon {...props} icon={item.finished?"check-underline-circle":"clock-outline"}/>} right={()=>(<Text>{item.date}</Text>)}/>
                                 </Swipeout>
                                 
