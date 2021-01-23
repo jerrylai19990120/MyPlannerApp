@@ -3,7 +3,7 @@ import {View, Text, ImageBackground} from 'react-native';
 import {Avatar, Input, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export const Login = ({navigation})=>{
+export const Login = ({navigation, setUser})=>{
 
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -25,6 +25,10 @@ export const Login = ({navigation})=>{
             return res.json()
         }).then(json => {
             if(json.username===username){
+                setUser({
+                    username: username,
+                    loggedIn: true
+                })
                 navigation.navigate("Home")
             }else{
 

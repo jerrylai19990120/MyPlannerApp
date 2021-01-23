@@ -3,7 +3,7 @@ import {View, Text, ImageBackground} from 'react-native';
 import {Avatar, Input, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export const Signup = ({navigation})=>{
+export const Signup = ({navigation, setUser})=>{
 
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -24,9 +24,13 @@ export const Signup = ({navigation})=>{
 
         fetch(request).then(res => {
             if(res.status === 200){
+                setUser({
+                    username: username,
+                    loggedIn: true
+                })
                 navigation.navigate('Home')
             }else{
-                
+
             }
         }).catch(err => console.log(err))
     }

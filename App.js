@@ -21,8 +21,15 @@ import {Login} from './components/login';
 import {Signup} from './components/signup';
 import { NavigationContainer } from '@react-navigation/native';
 import {Home} from './components/home';
+import {AddTask} from './components/addTask';
+import FlashMessage from 'react-native-flash-message';
 
 const App = () => {
+
+  const [user, setUser] = React.useState({
+    username: '',
+    loggedIn: false
+  })
 
   const Stack = createStackNavigator();
 
@@ -33,15 +40,19 @@ const App = () => {
           {(props) => <Welcome {...props} />}
           </Stack.Screen>
           <Stack.Screen name="Login" options={{gestureEnabled: false}}>
-          {(props) => <Login {...props} />}
+          {(props) => <Login {...props} setUser={setUser}/>}
           </Stack.Screen>
           <Stack.Screen name="Signup" options={{gestureEnabled: false}}>
-          {(props) => <Signup {...props} />}
+          {(props) => <Signup {...props} setUser={setUser}/>}
           </Stack.Screen>
           <Stack.Screen name="Home" options={{gestureEnabled: false}}>
-          {(props) => <Home {...props} />}
+          {(props) => <Home {...props} setUser={setUser} username={user.username}/>}
+          </Stack.Screen>
+          <Stack.Screen name="AddTask" options={{gestureEnabled: false}}>
+          {(props) => <AddTask {...props} owner={user.username}/>}
           </Stack.Screen>
         </Stack.Navigator>
+        <FlashMessage position='top' autoHide={true}/>
     </NavigationContainer>
     
   );
